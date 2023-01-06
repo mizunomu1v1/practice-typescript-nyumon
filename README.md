@@ -1,2 +1,8 @@
 # practice-typescript-nyumon
-「プロを目指す人のためのTypeScript入門」で勉強します
+
+## 動作確認
+1. index.tsにソース書く 
+1. tsc
+1. node dist/index.js
+
+今はそれが精いっぱい・・😂

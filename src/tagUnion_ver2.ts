@@ -45,6 +45,7 @@ export const mapOption = <T, U>(
     : obj;
 };
 
+// switchで書く場合
 export const mapOptionSwitch = <T, U>(
   obj: Opetion<T>,
   callback: (value: T) => U

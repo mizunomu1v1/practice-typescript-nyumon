@@ -1,24 +1,69 @@
-import * as fs  from "fs";
+// 型引数
+export type Opetion<T> =
+  | {
+      tag: "none";
+    }
+  | {
+      tag: "some";
+      value: T;
+    };
 
-const file = fs.readFileSync("./neko.txt", 'utf8');
+export const none: Opetion<undefined> = {
+  tag: "none",
+};
+export const four: Opetion<number> = {
+  tag: "some",
+  value: 4,
+};
 
-console.log(file);
+export const getNumber = (obj: Opetion<number>) => {
+  //   if (opetion.tag === "some") {
+  //     console.log(opetion.value);
+  //   }
+  if (isSome(obj)) {
+    console.log(obj.value);
+  }
+};
 
-// 一致結果のArrayを取得する
-const num = (file.match( /neko/g ) || [] ).length ;
-console.log(num);
+//opetionが{tag: "some",value: T}ならtrue
+export const isSome = <T>(
+  opetion: Opetion<T>
+): opetion is { tag: "some"; value: T } => {
+  return opetion.tag === "some";
+};
 
-//別解
-let count = 0;
-let currentIndex = 0;
+export const doubleOption = (obj: Opetion<number>) => {
+  return mapOption(obj, (x) => x * 2);
+};
 
-while(true){
-   const nextindex = file.indexOf("neko",currentIndex);
-   if(nextindex >= 0){
-    count++;
-    currentIndex = nextindex +1;
-   }else{
-    break;
-   }
-}
-console.log(count);
+export const mapOption = <T, U>(
+  obj: Opetion<T>,
+  callback: (value: T) => U
+): Opetion<U> => {
+  return obj.tag === "some"
+    ? { tag: obj.tag, value: callback(obj.value) }
+    : obj;
+};
+
+export const mapOptionSwitch = <T, U>(
+  obj: Opetion<T>,
+  callback: (value: T) => U
+) => {
+  switch (obj.tag) {
+    case "some":
+      return {
+        tag: "some",
+        value: callback(obj.value),
+      };
+    case "none":
+      return {
+        tag: "none",
+      };
+  }
+};
+
+console.log(doubleOption(none));
+console.log(doubleOption(four));
+
+// getNumber(none);
+// getNumber(four);

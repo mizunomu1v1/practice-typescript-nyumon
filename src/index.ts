@@ -1,18 +1,10 @@
-import { createInterface } from 'readline';
-// import { readFile } from "fs";
+export const startTime = performance.now();
 
-// console.log("1.読み込みを開始します");
-// readFile("./neko.txt", () => {
-//     console.log("3.読み込みました");
-// });
-// console.log("2.読み込みを開始しました");
-
-const rl = createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-rl.question("文字を入力してください",(line)=>{
-console.log(`${line}が入力されました`);
-rl.close();
-});
+// 第1引数：コールバック関数
+// 第2引数：数値（ミリ秒数）
+setTimeout(() => {
+    const endTime = performance.now();
+    console.log("タイマー呼ばれた");
+    console.log(`${endTime - startTime}ミリ秒かかった`);
+}, 3000);
+console.log("タイマー設定");

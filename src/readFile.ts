@@ -1,4 +1,4 @@
-export const startTime = performance.now();
+const startTime = performance.now();
 
 // 第1引数：コールバック関数
 // 第2引数：数値（ミリ秒数）
